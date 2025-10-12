@@ -47,9 +47,9 @@ const LoginPage = () => {
       {/* Geometric background patterns */}
       <div className="absolute inset-0 opacity-20">
         <div className="absolute top-10 left-10 w-32 h-32 border border-cyan-400/30 rotate-45 animate-float"></div>
-        <div className="absolute top-1/3 right-20 w-24 h-24 border border-purple-400/30 rotate-12 animate-float" style={{animationDelay: '1s'}}></div>
-        <div className="absolute bottom-20 left-1/4 w-40 h-40 border border-cyan-400/20 rotate-[30deg] animate-float" style={{animationDelay: '2s'}}></div>
-        <div className="absolute bottom-1/3 right-1/3 w-20 h-20 border border-purple-400/25 rotate-[60deg] animate-float" style={{animationDelay: '1.5s'}}></div>
+        <div className="absolute top-1/3 right-20 w-24 h-24 border border-purple-400/30 rotate-12 animate-float" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute bottom-20 left-1/4 w-40 h-40 border border-cyan-400/20 rotate-[30deg] animate-float" style={{ animationDelay: '2s' }}></div>
+        <div className="absolute bottom-1/3 right-1/3 w-20 h-20 border border-purple-400/25 rotate-[60deg] animate-float" style={{ animationDelay: '1.5s' }}></div>
       </div>
 
       {/* Circuit pattern overlay */}
@@ -57,11 +57,11 @@ const LoginPage = () => {
         <svg width="100%" height="100%" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <pattern id="circuit-lines" patternUnits="userSpaceOnUse" width="60" height="60">
-              <path d="M 0,30 L 30,30 L 30,0 M 30,30 L 60,30 M 30,30 L 30,60" stroke="currentColor" strokeWidth="1" fill="none"/>
-              <circle cx="30" cy="30" r="2" fill="currentColor"/>
+              <path d="M 0,30 L 30,30 L 30,0 M 30,30 L 60,30 M 30,30 L 30,60" stroke="currentColor" strokeWidth="1" fill="none" />
+              <circle cx="30" cy="30" r="2" fill="currentColor" />
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#circuit-lines)" className="text-cyan-400"/>
+          <rect width="100%" height="100%" fill="url(#circuit-lines)" className="text-cyan-400" />
         </svg>
       </div>
 
@@ -101,10 +101,10 @@ const LoginPage = () => {
             </span>
           </h1>
           <p className="text-xl mb-12 leading-relaxed text-gray-300 max-w-lg">
-            Entrena con IA avanzada, recibe feedback personalizado en tiempo real 
+            Entrena con IA avanzada, recibe feedback personalizado en tiempo real
             y conquista cualquier entrevista laboral con confianza absoluta.
           </p>
-          
+
           {/* Features */}
           <div className="grid grid-cols-2 gap-6 mb-12">
             <div className="flex items-center space-x-3 text-sm">
@@ -112,19 +112,19 @@ const LoginPage = () => {
               <span>IA Conversacional</span>
             </div>
             <div className="flex items-center space-x-3 text-sm">
-              <div className="w-2 h-2 bg-purple-400 rounded-full animate-glow-pulse" style={{animationDelay: '0.5s'}}></div>
+              <div className="w-2 h-2 bg-purple-400 rounded-full animate-glow-pulse" style={{ animationDelay: '0.5s' }}></div>
               <span>Análisis en Tiempo Real</span>
             </div>
             <div className="flex items-center space-x-3 text-sm">
-              <div className="w-2 h-2 bg-green-400 rounded-full animate-glow-pulse" style={{animationDelay: '1s'}}></div>
+              <div className="w-2 h-2 bg-green-400 rounded-full animate-glow-pulse" style={{ animationDelay: '1s' }}></div>
               <span>Feedback Personalizado</span>
             </div>
             <div className="flex items-center space-x-3 text-sm">
-              <div className="w-2 h-2 bg-yellow-400 rounded-full animate-glow-pulse" style={{animationDelay: '1.5s'}}></div>
+              <div className="w-2 h-2 bg-yellow-400 rounded-full animate-glow-pulse" style={{ animationDelay: '1.5s' }}></div>
               <span>Múltiples Escenarios</span>
             </div>
           </div>
-          
+
           {/* Redes sociales */}
           <div className="flex space-x-4">
             <a href="#" className="p-4 glass-card hover-lift interactive-element group border border-cyan-400/30">
@@ -170,7 +170,7 @@ const LoginPage = () => {
                 required
               />
             </div>
-            
+
             <div className="space-y-2">
               <label className="text-cyan-400 text-sm font-medium">Contraseña</label>
               <input
@@ -202,10 +202,13 @@ const LoginPage = () => {
 
             <div className="text-center">
               <p className="text-gray-400 text-sm">
-                ¿No tienes cuenta? 
-                <a href="#" className="text-cyan-400 hover:text-cyan-300 ml-1 transition-colors">
+                ¿No tienes cuenta?
+                <button
+                  onClick={() => navigate('/register')}
+                  className="text-cyan-400 hover:text-cyan-300 ml-1 transition-colors font-medium"
+                >
                   Regístrate aquí
-                </a>
+                </button>
               </p>
             </div>
           </form>

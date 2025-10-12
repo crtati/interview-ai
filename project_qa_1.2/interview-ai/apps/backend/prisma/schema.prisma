@@ -20,6 +20,38 @@ model User {
   role      String   @default("USER") // "USER" o "ADMIN"
   avatar    String?
   
+  // Información personal
+  phone         String?
+  birthDate     String?
+  gender        String?
+  address       String?
+  city          String?
+  country       String?
+  
+  // Educación
+  educationLevel  String?
+  institution     String?
+  fieldOfStudy    String?
+  graduationYear  String?
+  certifications  String? // Separado por |
+  
+  // Experiencia laboral
+  currentlyWorking Boolean @default(false)
+  currentPosition  String?
+  currentCompany   String?
+  yearsOfExperience String?
+  previousPositions String? // Texto largo
+  skills           String? // Separado por |
+  languages        String? // Separado por |
+  
+  // Preferencias y objetivos
+  desiredPosition   String?
+  desiredSalary     String?
+  availability      String?
+  willingToRelocate Boolean @default(false)
+  workMode          String?
+  aboutMe           String? // Texto largo
+  
   // Configuraciones del usuario
   settings  UserSettings?
   

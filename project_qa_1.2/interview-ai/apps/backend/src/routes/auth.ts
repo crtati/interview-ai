@@ -16,7 +16,7 @@ const router: Router = Router()
  */
 router.post('/register', [
   body('email').isEmail().normalizeEmail().withMessage('Email válido requerido'),
-  body('password').isLength({ min: 8 }).withMessage('Contraseña debe tener mínimo 8 caracteres'),
+  body('password').isLength({ min: 6 }).withMessage('Contraseña debe tener mínimo 6 caracteres'),
   body('firstName').trim().isLength({ min: 2 }).withMessage('Nombre requerido'),
   body('lastName').trim().isLength({ min: 2 }).withMessage('Apellido requerido'),
 ], asyncHandler(async (req: Request, res: Response) => {
@@ -30,7 +30,36 @@ router.post('/register', [
     })
   }
 
-  const { email, password, firstName, lastName } = req.body
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    phone,
+    birthDate,
+    gender,
+    address,
+    city,
+    country,
+    educationLevel,
+    institution,
+    fieldOfStudy,
+    graduationYear,
+    certifications,
+    currentlyWorking,
+    currentPosition,
+    currentCompany,
+    yearsOfExperience,
+    previousPositions,
+    skills,
+    languages,
+    desiredPosition,
+    desiredSalary,
+    availability,
+    willingToRelocate,
+    workMode,
+    aboutMe
+  } = req.body
 
   try {
     // Verificar si el usuario ya existe
@@ -56,6 +85,34 @@ router.post('/register', [
         password: hashedPassword,
         firstName,
         lastName,
+        // Información personal
+        phone,
+        birthDate,
+        gender,
+        address,
+        city,
+        country,
+        // Educación
+        educationLevel,
+        institution,
+        fieldOfStudy,
+        graduationYear,
+        certifications,
+        // Experiencia laboral
+        currentlyWorking: currentlyWorking || false,
+        currentPosition,
+        currentCompany,
+        yearsOfExperience,
+        previousPositions,
+        skills: Array.isArray(skills) ? skills.join('|') : skills,
+        languages: Array.isArray(languages) ? languages.join('|') : languages,
+        // Preferencias y objetivos
+        desiredPosition,
+        desiredSalary,
+        availability,
+        willingToRelocate: willingToRelocate || false,
+        workMode,
+        aboutMe,
         settings: {
           create: {
             language: 'es',
@@ -232,7 +289,7 @@ router.post('/refresh', [
   try {
     // Verificar refresh token
     const decoded = jwtUtils.verifyRefreshToken(refreshToken)
-    
+
     // Buscar token en base de datos
     const storedToken = await prisma.refreshToken.findUnique({
       where: { token: refreshToken },

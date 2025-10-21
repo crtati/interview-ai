@@ -1,0 +1,25 @@
+# === Dependencias y compilados ===
+node_modules/
+dist/
+build/
+.cache/
+.tmp/
+out/
+
+# === Archivos de entorno ===
+.env
+.env.local
+*.log
+*.db
+
+# === Configs de sistema ===
+.DS_Store
+Thumbs.db
+
+# === pnpm workspace ===
+project_qa_1.2/
+pnpm-lock.yaml
+
+# === Archivos generados ===
+*.map
+*.tsbuildinfo

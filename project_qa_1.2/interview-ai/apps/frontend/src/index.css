@@ -1,0 +1,1139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Variables CSS futuristas AI */
+:root {
+  /* Colores principales */
+  --color-primary: #00f5ff;
+  --color-primary-dark: #00d4ff;
+  --color-primary-light: #4df7ff;
+  --color-secondary: #8b5cf6;
+  --color-secondary-dark: #7c3aed;
+  --color-accent: #10b981;
+  --color-warning: #fbbf24;
+  --color-error: #f87171;
+
+  /* Backgrounds futuristas */
+  --bg-primary: #0a0a0b;
+  --bg-secondary: #111118;
+  --bg-tertiary: #1a1a27;
+  --bg-card: rgba(26, 26, 39, 0.8);
+  --bg-glass: rgba(255, 255, 255, 0.05);
+
+  /* Texts */
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --text-accent: #00f5ff;
+
+  /* Borders y efectos */
+  --border-primary: rgba(0, 245, 255, 0.3);
+  --border-secondary: rgba(139, 92, 246, 0.3);
+  --glow-primary: 0 0 20px rgba(0, 245, 255, 0.3);
+  --glow-secondary: 0 0 20px rgba(139, 92, 246, 0.3);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.3);
+
+  /* Gradientes futuristas */
+  --gradient-primary: linear-gradient(135deg, #00f5ff 0%, #8b5cf6 100%);
+  --gradient-secondary: linear-gradient(135deg, #1a1a27 0%, #2d1b69 100%);
+  --gradient-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  --gradient-neon: linear-gradient(90deg, #00f5ff, #8b5cf6, #00f5ff);
+}
+
+/* Base styles futuristas */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg-primary);
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg-primary) !important;
+  color: var(--text-primary);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* Background animated particles */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    radial-gradient(circle at 20% 80%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(16, 185, 129, 0.05) 0%, transparent 50%);
+  z-index: -1;
+  animation: backgroundFlow 20s ease-in-out infinite;
+}
+
+/* Componentes futuristas */
+@layer components {
+  .btn-primary {
+    background: var(--gradient-primary);
+    color: var(--bg-primary);
+    font-weight: 600;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--glow-primary);
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-primary:hover::before {
+    left: 100%;
+  }
+
+  .btn-secondary {
+    background: var(--bg-card);
+    color: var(--text-primary);
+    font-weight: 500;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: 1px solid var(--border-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .btn-secondary:hover {
+    background: var(--bg-glass);
+    border-color: var(--color-primary);
+    box-shadow: var(--glow-primary);
+    transform: translateY(-1px);
+  }
+
+  .glass-card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-primary);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: var(--shadow-glass);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gradient-neon);
+    animation: neonLine 3s linear infinite;
+  }
+
+  .neon-border {
+    border: 1px solid var(--border-primary);
+    box-shadow:
+      inset 0 0 10px rgba(0, 245, 255, 0.1),
+      0 0 10px rgba(0, 245, 255, 0.1);
+  }
+
+  .neon-text {
+    color: var(--color-primary);
+    text-shadow:
+      0 0 5px rgba(0, 245, 255, 0.5),
+      0 0 10px rgba(0, 245, 255, 0.3),
+      0 0 15px rgba(0, 245, 255, 0.2);
+  }
+
+  .input-futuristic {
+    width: 100%;
+    padding: 16px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-primary);
+    border-radius: 12px;
+    color: var(--text-primary);
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+  }
+
+  .input-futuristic:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: var(--glow-primary);
+    background: var(--bg-glass);
+  }
+
+  .input-futuristic::placeholder {
+    color: var(--text-muted);
+  }
+
+  /* Estilos para input type date con icono cyan */
+  .date-input-cyan::-webkit-calendar-picker-indicator {
+    filter: invert(70%) sepia(100%) saturate(2000%) hue-rotate(160deg) brightness(100%);
+    cursor: pointer;
+  }
+
+  .date-input-cyan::-webkit-calendar-picker-indicator:hover {
+    filter: invert(70%) sepia(100%) saturate(2500%) hue-rotate(160deg) brightness(110%);
+  }
+
+  /* Estilos personalizados para selects - usando color-scheme para dropdowns oscuros nativos */
+  select {
+    border-radius: 12px !important;
+    color-scheme: dark;
+  }
+
+  /* Para navegadores Webkit/Chrome - personaliza el dropdown */
+  select::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  select::-webkit-scrollbar-track {
+    background: #0a0a0b;
+    border-radius: 10px;
+  }
+
+  select::-webkit-scrollbar-thumb {
+    background: rgba(0, 245, 255, 0.4);
+    border-radius: 10px;
+  }
+
+  select::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 245, 255, 0.6);
+  }
+
+  /* Mejora visual para Firefox */
+  @-moz-document url-prefix() {
+    select option {
+      background-color: #1a1a27 !important;
+      color: #e5e7eb !important;
+    }
+
+    select option:checked {
+      background-color: rgba(0, 245, 255, 0.2) !important;
+      color: #00f5ff !important;
+    }
+  }
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--border-primary);
+    border-top: 3px solid var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .progress-bar {
+    height: 6px;
+    background: var(--bg-tertiary);
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    border-radius: 3px;
+    transition: width 0.5s ease;
+    position: relative;
+  }
+
+  .progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+  }
+}
+
+/* Animaciones futuristas */
+@keyframes backgroundFlow {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  50% {
+    opacity: 0.8;
+    transform: rotate(180deg) scale(1.1);
+  }
+}
+
+@keyframes neonLine {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes glowPulse {
+
+  0%,
+  100% {
+    box-shadow: 0 0 5px rgba(0, 245, 255, 0.3);
+  }
+
+  50% {
+    box-shadow: 0 0 20px rgba(0, 245, 255, 0.6);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes typing {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes blink {
+
+  0%,
+  50% {
+    border-color: transparent;
+  }
+
+  51%,
+  100% {
+    border-color: var(--color-primary);
+  }
+}
+
+/* Classes de animación */
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.6s ease-out;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.4s ease-out;
+}
+
+.animate-glow-pulse {
+  animation: glowPulse 2s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
+
+.hover-lift {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Efectos de grabación */
+.recording-indicator {
+  position: relative;
+  animation: recordingPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes recordingPulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+}
+
+.recording-indicator::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--color-primary);
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  animation: recordingRipple 1.5s ease-out infinite;
+}
+
+@keyframes recordingRipple {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(2);
+    opacity: 0;
+  }
+}
+
+/* Avatar 3D Futurista */
+.avatar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 240px;
+  height: 240px;
+}
+
+.avatar-3d {
+  position: relative;
+  width: 140px;
+  height: 160px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  filter: drop-shadow(0 0 20px rgba(0, 245, 255, 0.3));
+}
+
+.avatar-3d.idle {
+  animation: avatarBreathe 4s ease-in-out infinite;
+}
+
+.avatar-3d.listening {
+  animation: avatarListen 0.8s ease-in-out infinite alternate;
+  filter: drop-shadow(0 0 30px rgba(0, 245, 255, 0.8));
+}
+
+.avatar-3d.speaking {
+  animation: avatarSpeak 0.3s ease-in-out infinite;
+  filter: drop-shadow(0 0 25px rgba(139, 92, 246, 0.6));
+}
+
+.avatar-head {
+  width: 100px;
+  height: 100px;
+  background: var(--gradient-primary);
+  border-radius: 50%;
+  position: relative;
+  margin: 0 auto 15px;
+  box-shadow:
+    0 10px 30px rgba(0, 245, 255, 0.4),
+    inset 0 0 20px rgba(255, 255, 255, 0.1),
+    0 0 0 2px rgba(0, 245, 255, 0.2);
+  overflow: hidden;
+}
+
+.avatar-head::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: conic-gradient(from 0deg, var(--color-primary), var(--color-secondary), var(--color-primary));
+  border-radius: 50%;
+  z-index: -1;
+  animation: rotate 3s linear infinite;
+}
+
+.avatar-head::after {
+  content: '';
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  right: 10%;
+  bottom: 10%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.avatar-eyes {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 16px;
+}
+
+.eye {
+  width: 14px;
+  height: 14px;
+  background: var(--bg-primary);
+  border-radius: 50%;
+  position: relative;
+  animation: eyeBlink 4s infinite;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+.eye::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 6px;
+  height: 6px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  animation: eyeGlow 2s ease-in-out infinite;
+}
+
+.avatar-mouth {
+  position: absolute;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mouth-shape {
+  width: 24px;
+  height: 12px;
+  background: var(--bg-primary);
+  border-radius: 0 0 24px 24px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.mouth-shape::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.mouth-shape.talking {
+  animation: mouthTalk 0.3s ease-in-out infinite alternate;
+}
+
+.mouth-shape.talking::before {
+  opacity: 0.6;
+  animation: mouthGlow 0.3s ease-in-out infinite;
+}
+
+.avatar-body {
+  width: 80px;
+  height: 60px;
+  background: var(--gradient-secondary);
+  border-radius: 40px;
+  margin: 0 auto;
+  position: relative;
+  box-shadow:
+    0 8px 20px rgba(139, 92, 246, 0.4),
+    inset 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.avatar-body::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 4px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  box-shadow: 0 0 10px var(--color-primary);
+  animation: bodyPulse 2s ease-in-out infinite;
+}
+
+/* Indicadores de estado futuristas */
+.listening-indicator {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+.pulse-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 160px;
+  height: 160px;
+  border: 2px solid rgba(0, 245, 255, 0.4);
+  border-radius: 50%;
+  animation: pulseExpand 2s ease-out infinite;
+}
+
+.pulse-ring.delay-1 {
+  animation-delay: 0.6s;
+  border-color: rgba(139, 92, 246, 0.4);
+}
+
+.pulse-ring.delay-2 {
+  animation-delay: 1.2s;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
+.speaking-indicator {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  align-items: end;
+  padding: 8px 16px;
+  background: var(--bg-card);
+  border-radius: 20px;
+  border: 1px solid var(--border-primary);
+  backdrop-filter: blur(10px);
+}
+
+.sound-wave {
+  width: 4px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+  animation: soundWaveNew 0.8s ease-in-out infinite alternate;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+.wave-1 {
+  height: 16px;
+  animation-delay: 0s;
+}
+
+.wave-2 {
+  height: 24px;
+  animation-delay: 0.2s;
+}
+
+.wave-3 {
+  height: 20px;
+  animation-delay: 0.4s;
+}
+
+.wave-4 {
+  height: 18px;
+  animation-delay: 0.6s;
+}
+
+.wave-5 {
+  height: 22px;
+  animation-delay: 0.8s;
+}
+
+/* Animaciones del avatar futurista */
+@keyframes avatarBreathe {
+
+  0%,
+  100% {
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: scale(1.03) translateY(-3px) rotate(1deg);
+  }
+}
+
+@keyframes avatarListen {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    transform: translateY(-12px) scale(1.05);
+  }
+}
+
+@keyframes avatarSpeak {
+
+  0%,
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+
+  25% {
+    transform: translateX(-2px) rotate(-0.5deg);
+  }
+
+  75% {
+    transform: translateX(2px) rotate(0.5deg);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes eyeBlink {
+
+  0%,
+  92%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  94%,
+  96% {
+    transform: scaleY(0.1);
+  }
+}
+
+@keyframes eyeGlow {
+
+  0%,
+  100% {
+    box-shadow: 0 0 5px var(--color-primary);
+    opacity: 1;
+  }
+
+  50% {
+    box-shadow: 0 0 15px var(--color-primary);
+    opacity: 0.8;
+  }
+}
+
+@keyframes mouthTalk {
+  0% {
+    height: 12px;
+    width: 24px;
+    border-radius: 0 0 24px 24px;
+  }
+
+  100% {
+    height: 8px;
+    width: 30px;
+    border-radius: 0 0 30px 30px;
+  }
+}
+
+@keyframes mouthGlow {
+
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes bodyPulse {
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1.2);
+  }
+}
+
+@keyframes pulseExpand {
+  0% {
+    transform: translate(-50%, -50%) scale(0.7);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translate(-50%, -50%) scale(1.3);
+    opacity: 0;
+  }
+}
+
+@keyframes soundWaveNew {
+  0% {
+    height: 8px;
+    opacity: 0.4;
+  }
+
+  100% {
+    height: 28px;
+    opacity: 1;
+  }
+}
+
+/* Scrollbar futurista */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gradient-primary);
+  border-radius: 4px;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+  box-shadow: 0 0 15px rgba(0, 245, 255, 0.5);
+}
+
+/* Efectos hover generales */
+.interactive-element {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactive-element:hover {
+  transform: translateY(-2px);
+}
+
+/* Efectos de selección */
+::selection {
+  background: rgba(0, 245, 255, 0.3);
+  color: white;
+}
+
+::-moz-selection {
+  background: rgba(0, 245, 255, 0.3);
+  color: white;
+}
+
+/* Disable default focus outline y agregar custom */
+*:focus {
+  outline: none;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Loading states */
+.loading-state {
+  position: relative;
+  overflow: hidden;
+}
+
+.loading-state::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 245, 255, 0.2), transparent);
+  animation: loading-sweep 2s infinite;
+}
+
+@keyframes loading-sweep {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 100%;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .avatar-container {
+    width: 180px;
+    height: 180px;
+  }
+
+  .avatar-3d {
+    width: 100px;
+    height: 120px;
+  }
+
+  .avatar-head {
+    width: 70px;
+    height: 70px;
+  }
+
+  .avatar-body {
+    width: 60px;
+    height: 45px;
+  }
+
+  .glass-card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .avatar-container {
+    width: 140px;
+    height: 140px;
+  }
+
+  .avatar-3d {
+    width: 80px;
+    height: 100px;
+  }
+
+  .glass-card {
+    padding: 12px;
+    border-radius: 12px;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Forzar modo oscuro siempre */
+html,
+body {
+  background: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Asegurar que todos los contenedores mantengan el fondo oscuro */
+div,
+main,
+section,
+article,
+aside,
+header,
+footer {
+  background-color: transparent;
+}
+
+.min-h-screen {
+  background: var(--bg-primary) !important;
+}
+
+/* Custom scrollbar para chat futurista */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 245, 255, 0.3) transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, rgba(0, 245, 255, 0.3), rgba(139, 92, 246, 0.3));
+  border-radius: 3px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, rgba(0, 245, 255, 0.5), rgba(139, 92, 246, 0.5));
+}
+
+/* Neon border sutil para chat */
+.neon-border-subtle {
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 245, 255, 0.2),
+    0 0 20px rgba(0, 245, 255, 0.1);
+}
+
+/* Animación fade-in para mensajes del chat */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+/* Cuadro de transcripción en vivo - SIN animaciones repetitivas */
+.live-transcript-box {
+  animation: fade-in 0.3s ease-out;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+  /* Forzar que no haya transformaciones ni animaciones adicionales */
+  transform: none !important;
+  will-change: auto;
+}
+
+/* Asegurar que el contenido dentro tampoco tenga animaciones */
+.live-transcript-box * {
+  animation: none !important;
+  transform: none !important;
+}
+
+/* Excepto el icono del micrófono que sí debe pulsar */
+.live-transcript-box .animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+/* Print styles */
+@media print {
+  body::before {
+    display: none;
+  }
+
+  .glass-card {
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: none;
+  }
+}

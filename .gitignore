@@ -17,7 +17,6 @@ out/
 Thumbs.db
 
 # === pnpm workspace ===
-project_qa_1.2/
 pnpm-lock.yaml
 
 # === Archivos generados ===

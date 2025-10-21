@@ -1,0 +1,247 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo de Usuario
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  firstName String
+  lastName  String
+  role      String   @default("USER") // "USER" o "ADMIN"
+  avatar    String?
+  
+  // Información personal
+  phone         String?
+  birthDate     String?
+  gender        String?
+  address       String?
+  city          String?
+  country       String?
+  
+  // Educación
+  educationLevel  String?
+  institution     String?
+  fieldOfStudy    String?
+  graduationYear  String?
+  certifications  String? // Separado por |
+  
+  // Experiencia laboral
+  currentlyWorking Boolean @default(false)
+  currentPosition  String?
+  currentCompany   String?
+  yearsOfExperience String?
+  previousPositions String? // Texto largo
+  skills           String? // Separado por |
+  languages        String? // Separado por |
+  
+  // Preferencias y objetivos
+  desiredPosition   String?
+  desiredSalary     String?
+  availability      String?
+  willingToRelocate Boolean @default(false)
+  workMode          String?
+  aboutMe           String? // Texto largo
+  
+  // Configuraciones del usuario
+  settings  UserSettings?
+  
+  // Relaciones
+  interviews     Interview[]
+  notifications  Notification[]
+  refreshTokens  RefreshToken[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+// Modelo de configuraciones de usuario
+model UserSettings {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  // Configuraciones generales
+  language                   String  @default("es")
+  preferredInterviewDuration Int     @default(30) // minutos
+  enableNotifications        Boolean @default(true)
+  
+  // Configuraciones de avatar
+  avatarEnabled    Boolean @default(true)
+  avatarId         String?
+  voiceProvider    String  @default("azure") // azure, google, elevenlabs
+  voiceSettings    String? // configuraciones específicas de voz como texto
+  
+  // Configuraciones de audio
+  audioSettings String? // configuraciones de dispositivos y procesamiento como texto
+  
+  // Configuraciones de privacidad
+  saveRecordings            Boolean @default(true)
+  shareDataForImprovement   Boolean @default(false)
+  allowAnalytics           Boolean @default(true)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user_settings")
+}
+
+// Modelo de entrevistas
+model Interview {
+  id          String          @id @default(cuid())
+  userId      String
+  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  title       String
+  description String?
+  status      String @default("DRAFT") // "DRAFT", "IN_PROGRESS", "COMPLETED", "CANCELLED"
+  type        String @default("MIXED")  // "TECHNICAL", "BEHAVIORAL", "MIXED", "CUSTOM"
+  duration    Int             // duración total en segundos
+  
+  // Configuraciones de la entrevista
+  enableAvatar    Boolean @default(true)
+  enableRecording Boolean @default(true)
+  language        String  @default("es")
+  
+  // Relaciones
+  questions InterviewQuestion[]
+  responses InterviewResponse[]
+  feedback  InterviewFeedback?
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  startedAt   DateTime?
+  completedAt DateTime?
+
+  @@map("interviews")
+}
+
+// Modelo de preguntas
+model Question {
+  id                String             @id @default(cuid())
+  text              String
+  category          String // "TECHNICAL_SKILLS", "PROBLEM_SOLVING", etc.
+  difficulty        String // "EASY", "MEDIUM", "HARD"
+  expectedDuration  Int                // segundos
+  followUpQuestions String?           // preguntas de seguimiento como texto separado por |
+  
+  // Metadatos
+  tags        String? // tags separados por comas
+  isActive    Boolean @default(true)
+  createdBy   String? // ID del usuario que creó la pregunta (admin)
+  
+  // Relaciones
+  interviewQuestions InterviewQuestion[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("questions")
+}
+
+// Tabla pivot para entrevistas y preguntas
+model InterviewQuestion {
+  id           String    @id @default(cuid())
+  interviewId  String
+  interview    Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  questionId   String
+  question     Question  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  
+  orderIndex   Int       // orden de la pregunta en la entrevista
+  isAnswered   Boolean   @default(false)
+  
+  createdAt DateTime @default(now())
+
+  @@unique([interviewId, questionId])
+  @@map("interview_questions")
+}
+
+// Modelo de respuestas a entrevistas
+model InterviewResponse {
+  id           String    @id @default(cuid())
+  interviewId  String
+  interview    Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  questionId   String
+  
+  // Contenido de la respuesta
+  audioUrl      String?   // URL del archivo de audio
+  transcription String    // transcripción del audio
+  duration      Int       // duración en segundos
+  confidence    Float     // confianza del STT (0-1)
+  
+  // Metadatos
+  recordedAt DateTime @default(now())
+
+  @@map("interview_responses")
+}
+
+// Modelo de feedback de entrevistas
+model InterviewFeedback {
+  id          String    @id @default(cuid())
+  interviewId String    @unique
+  interview   Interview @relation(fields: [interviewId], references: [id], onDelete: Cascade)
+  
+  // Puntuación general
+  overallScore          Int      // 0-100
+  strengths             String? // separados por |
+  areasForImprovement   String? // separados por |
+  recommendations       String? // separados por |
+  
+  // Feedback detallado por pregunta
+  detailedFeedback String? // JSON como texto
+  
+  // Metadatos de generación
+  aiModel     String    // modelo de IA usado
+  generatedAt DateTime  @default(now())
+
+  @@map("interview_feedback")
+}
+
+// Modelo de notificaciones
+model Notification {
+  id      String           @id @default(cuid())
+  userId  String
+  user    User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  type       String // "INTERVIEW_COMPLETED", "FEEDBACK_READY", etc.
+  title      String
+  message    String
+  read       Boolean          @default(false)
+  actionUrl  String?
+  
+  createdAt DateTime @default(now())
+
+  @@map("notifications")
+}
+
+// Modelo de tokens de refresh
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  @@map("refresh_tokens")
+}
+
+// Nota: SQLite no soporta enums, usamos strings con valores predefinidos
+// Role: "USER", "ADMIN"
+// InterviewStatus: "DRAFT", "IN_PROGRESS", "COMPLETED", "CANCELLED"
+// InterviewType: "TECHNICAL", "BEHAVIORAL", "MIXED", "CUSTOM"
+// QuestionCategory: "TECHNICAL_SKILLS", "PROBLEM_SOLVING", "COMMUNICATION", "LEADERSHIP", "TEAMWORK", "ADAPTABILITY", "CUSTOM"
+// QuestionDifficulty: "EASY", "MEDIUM", "HARD"
+// NotificationType: "INTERVIEW_COMPLETED", "FEEDBACK_READY", "REMINDER", "ACHIEVEMENT", "SYSTEM"
